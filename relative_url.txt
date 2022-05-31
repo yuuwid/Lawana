@@ -11,7 +11,7 @@
  *
  *
  * In css you can use Relative Url for image like
- * background-image = "../../images/{file_name}";
+ * background-image = url(./images/{file_name});
  *
  *
  */

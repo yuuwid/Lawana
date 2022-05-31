@@ -2,13 +2,14 @@
 
 namespace Lawana\Routing;
 
+use Lawana\Middleware\BaseMiddleware;
 use Lawana\Utils\Tools;
 
 class BaseUrl extends Web
 {
     protected static $name_url = null;
 
-    public function __construct($url, $option)
+    public function __construct(string $url, mixed $option)
     {
         BaseUrl::$name_url = Tools::random_str(5);
         self::$urls[BaseUrl::$name_url] = [
@@ -16,7 +17,7 @@ class BaseUrl extends Web
             'request_method' => 'GET',
             'url' => $url,
             'option' => $option,
-            'reference_model' => null
+            'middleware' => null
         ];
     }
 
@@ -32,13 +33,7 @@ class BaseUrl extends Web
         return $this;
     }
 
-    public function reference($model)
-    {
-        self::$urls[BaseUrl::$name_url]['reference_model'] = $model;
-        return $this;
-    }
-
-    public function name($name)
+    public function name(string $name)
     {
         if (!array_key_exists($name, self::$urls))
         {
@@ -51,8 +46,12 @@ class BaseUrl extends Web
         return $this;
     }
 
-    public function middleware()
+    public function middleware(string | array $handlers)
     {
+        self::$urls[BaseUrl::$name_url]['middleware'] = $handlers;
 
+        new BaseMiddleware($handlers);
+
+        return $this;
     }
 }

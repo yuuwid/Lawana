@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Lawana\Routing;
 
@@ -6,12 +6,13 @@ use Core\App,
     Lawana\Routing\BaseUrl,
     Lawana\Routing\BaseApi;
 
-class Register extends App {
-    
+class Register extends App
+{
+
 
     public static function url(string $url, mixed $option)
     {
-        if (self::check($url) == true){
+        if (self::check($url) == true) {
             $register = new BaseUrl($url, $option);
             return $register;
         }
@@ -20,7 +21,7 @@ class Register extends App {
 
     public static function api(string $url, mixed $option)
     {
-        if (self::check($url) == true){
+        if (self::check($url) == true) {
             $register = new BaseApi($url, $option);
             return $register;
         }
@@ -53,5 +54,4 @@ class Register extends App {
             }
         }
     }
-
 }

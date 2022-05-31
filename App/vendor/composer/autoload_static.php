@@ -14,6 +14,7 @@ class ComposerStaticInitdac6923e96b38f35b893f8afe5f98514
         'M' => 
         array (
             'Models\\' => 7,
+            'Middleware\\' => 11,
         ),
         'L' => 
         array (
@@ -21,6 +22,7 @@ class ComposerStaticInitdac6923e96b38f35b893f8afe5f98514
             'Lawana\\Utils\\' => 13,
             'Lawana\\Routing\\' => 15,
             'Lawana\\Model\\' => 13,
+            'Lawana\\Middleware\\' => 18,
             'Lawana\\Message\\Layout\\' => 22,
             'Lawana\\Message\\' => 15,
             'Lawana\\Kernel\\' => 14,
@@ -52,6 +54,10 @@ class ComposerStaticInitdac6923e96b38f35b893f8afe5f98514
         array (
             0 => __DIR__ . '/../..' . '/Models',
         ),
+        'Middleware\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/Middleware',
+        ),
         'Lawana\\View\\' => 
         array (
             0 => __DIR__ . '/..' . '/lawana/View',
@@ -67,6 +73,10 @@ class ComposerStaticInitdac6923e96b38f35b893f8afe5f98514
         'Lawana\\Model\\' => 
         array (
             0 => __DIR__ . '/..' . '/lawana/Model',
+        ),
+        'Lawana\\Middleware\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/lawana/Middleware',
         ),
         'Lawana\\Message\\Layout\\' => 
         array (

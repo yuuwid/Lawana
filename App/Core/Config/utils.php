@@ -56,7 +56,8 @@ function view(string $view, $data = [], $collection = false)
     }
 }
 
-function need(string $view, $data = []){
+function need(string $view, $data = [])
+{
     if ($check = \Lawana\View\View::check($view)) {
         require_once $check[1];
     } else {

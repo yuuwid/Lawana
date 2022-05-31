@@ -2,62 +2,97 @@
 
 namespace Lawana\Routing;
 
+use Lawana\Middleware\BaseMiddleware;
 use Lawana\View\View,
     Lawana\Utils\Redirect,
     Lawana\Utils\Request;
 
-    
+
 class Route
 {
 
 
+    private static function checkMiddleware($register)
+    {
+        global $registerMidlleware;
+        if ($register['middleware'] != null) {
+            $status = self::handleTheMiddleware($registerMidlleware[$register['middleware']]);
+            return $status;
+        } else {
+            return null;
+        }
+    }
+
     protected static function check($register)
     {
-        if ($register['option'] instanceof \Closure) {
-            self::to_closure($register);
-        } else {
-            $route = $register['option'][0];
-            $method_route = $register['option'][1];
-            $type = $register['type'];
+        $checkMiddleware = self::checkMiddleware($register);
 
-            $r_path = PATH_APP . 'App/';
-            $route_require = $r_path . $route . '.php';
+        if (($checkMiddleware == null) or ($checkMiddleware == true)) {
+            if ($register['option'] instanceof \Closure) {
+                self::to_closure($register);
+            } else {
+                $route = $register['option'][0];
+                $method_route = $register['option'][1];
+                $type = $register['type'];
 
-            if (!file_exists($route_require)) {
-                if ($type == 'API') {
-                    if (env('APP_DEV', 'project') == 'publish') {
-                        Redirect::error(404, "<b>Not Found</b>");
+                $r_path = PATH_APP . 'App/';
+                $route_require = $r_path . $route . '.php';
+
+                if (!file_exists($route_require)) {
+                    if ($type == 'API') {
+                        if (env('APP_DEV', 'project') == 'publish') {
+                            Redirect::error(404, "<b>Not Found</b>");
+                        } else {
+                            Redirect::error("BAD REQUEST", "<b>API has been closed.</b>");
+                        }
                     } else {
-                        Redirect::error("BAD REQUEST", "<b>API has been closed.</b>");
-                    }
-                } else {
-                    if (env('APP_DEV', 'project') == 'publish') {
-                        Redirect::error(404, "<b>Not Found</b>");
-                    } else {
-                        Redirect::error("ERROR", "Controller: <b>$route_require</b> Not Found.");
+                        if (env('APP_DEV', 'project') == 'publish') {
+                            Redirect::error(404, "<b>Not Found</b>");
+                        } else {
+                            Redirect::error("ERROR", "Controller: <b>$route_require</b> Not Found.");
+                        }
                     }
                 }
-            }
 
-            // App\Controllers\ExampleController.php ==> App\Models\ExampleController.php
-            $model = str_replace('Controllers', 'Models', $route);
+                // App\Controllers\ExampleController.php ==> App\Models\ExampleController.php
+                $model = str_replace('Controllers', 'Models', $route);
 
-            // App\Models\ExampleController.php ==> App\Models\Example.php
-            $model = str_replace('Controller', '', $model);
-            new $model();
+                // App\Models\ExampleController.php ==> App\Models\Example.php
+                $model = str_replace('Controller', '', $model);
+                new $model();
 
-            $route = new $route();
+                $route = new $route();
 
-            $params = [new Request];
+                $params = [new Request];
 
-            if ($type == 'API') {
-                self::request_api($route, $method_route, $params);
-            } else {
-                self::to_controller($route, $method_route, $params);
+                if ($type == 'API') {
+                    self::request_api($route, $method_route, $params);
+                } else {
+                    self::to_controller($route, $method_route, $params);
+                }
             }
         }
     }
 
+
+    public static function handleTheMiddleware($middleware)
+    {
+        $middleware = new $middleware();
+        $method = 'handle';
+        $params = [new Request()];
+
+        if (method_exists($middleware, $method)) {
+            if (($ret = call_user_func_array([$middleware, $method], $params)) !== null) {
+                return $ret;
+            }
+        } else {
+            if (env('APP_DEV', 'project') == 'publish') {
+                Redirect::error(404, "<b>Not Found</b>");
+            } else {
+                Redirect::error("ERROR", "Method: <b>$method</b> Not Found.");
+            }
+        }
+    }
 
 
 

@@ -2,7 +2,9 @@
 
 namespace Lawana\Routing;
 
+use Lawana\Middleware\BaseMiddleware;
 use Lawana\Utils\Redirect;
+use Lawana\Utils\Request;
 
 class Web extends Route
 {
@@ -21,9 +23,12 @@ class Web extends Route
     protected static $urls = [];
 
 
+    private static $register = null;
+
+
     private static $request_url = null;
 
-    
+
     private static $request_method = null;
 
 
@@ -37,7 +42,7 @@ class Web extends Route
             $req_url = str_replace('?' . $_SERVER['QUERY_STRING'], '', $req_url);
         }
 
-        $ROOT_URL = str_replace('/Public/index.php', '', $_SERVER['PHP_SELF']);
+        $ROOT_URL = ROOT_URL;
         $req_url = str_replace($ROOT_URL, '', $req_url);
         $req_url = filter_var($req_url, FILTER_SANITIZE_URL);
 
@@ -48,13 +53,11 @@ class Web extends Route
             }
         }
 
-        define('ROOT_URL', $ROOT_URL);
         $URL = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . ROOT_URL;
         global $env;
         $env['APP_URL'] = $URL;
 
         define('REQUEST_URL', $request_url);
-
 
         self::$request_url = $request_url;
         self::$request_method = $request_method;
@@ -62,20 +65,17 @@ class Web extends Route
 
 
 
-    
+
     protected static function serve()
     {
         $urls = self::$urls;
-        $req_url = self::$request_url;
-        $req_method = self::$request_method;
-
         $found = false;
 
         if ($urls !== null) {
             foreach ($urls as $name => $reg) {
-                if (($reg['url'] == $req_url) and ($reg['request_method'] == $req_method)) {
-                    parent::check($reg);
-                    $found = true;
+                self::$register = $reg;
+                $found = self::next();
+                if ($found == true) {
                     break;
                 }
             }
@@ -86,5 +86,19 @@ class Web extends Route
         } else {
             Redirect::error(404, "<b>Not Found</b>");
         }
+    }
+
+    protected static function next()
+    {
+        $req_url = self::$request_url;
+        $req_method = self::$request_method;
+        $reg = self::$register;
+        $found = false;
+
+        if (($reg['url'] == $req_url) and ($reg['request_method'] == $req_method)) {
+            parent::check($reg);
+            $found = true;
+        }
+        return $found;
     }
 }

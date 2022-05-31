@@ -24,7 +24,7 @@ class Redirect
                 self::error($location);
             } else {
                 $location = ltrim($location, '/');
-                header('Location: ' . './' . $location);
+                header('Location: ' . URL . '/' . $location);
                 exit();
             }
         }
