@@ -6,7 +6,10 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Symfony\\Polyfill\\Php80\\' => array($vendorDir . '/symfony/polyfill-php80'),
     'PDODB\\' => array($vendorDir . '/pdo'),
+    'Mongo\\' => array($vendorDir . '/mongo'),
+    'MongoDB\\' => array($vendorDir . '/mongodb/mongodb/src'),
     'Models\\' => array($baseDir . '/Models'),
     'Middleware\\' => array($baseDir . '/Middleware'),
     'Lawana\\View\\' => array($vendorDir . '/lawana/View'),
@@ -23,6 +26,7 @@ return array(
     'Lawana\\Environment\\Local\\' => array($vendorDir . '/lawana/Environment/Local'),
     'Lawana\\Controller\\' => array($vendorDir . '/lawana/Controller'),
     'Lawana\\API\\' => array($vendorDir . '/lawana/API'),
+    'Jean85\\' => array($vendorDir . '/jean85/pretty-package-versions/src'),
     'Core\\Helpers\\' => array($baseDir . '/Core/Helpers'),
     'Core\\' => array($baseDir . '/Core'),
     'Controllers\\' => array($baseDir . '/Controllers'),

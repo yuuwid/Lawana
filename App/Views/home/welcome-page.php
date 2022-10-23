@@ -13,11 +13,11 @@
 
     <style>
         .back-container {
-            background-color: skyblue;
+            background-color: #1e90ff;
         }
 
         .text-blue {
-            color: skyblue;
+            color: #1e90ff;
         }
 
         .txt-lawana {
@@ -66,7 +66,7 @@
             </section>
             <section class="col col-6">
                 <div class="text-end py-2 mt-2 text-white">
-                    Lawana version <b class="ps-2 text-dark">0.0.1</b>
+                    Lawana version <b class="ps-2 text-dark">1.0.0</b>
                 </div>
             </section>
         </div>

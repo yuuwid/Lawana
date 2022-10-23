@@ -6,13 +6,24 @@ namespace Composer\Autoload;
 
 class ComposerStaticInitdac6923e96b38f35b893f8afe5f98514
 {
+    public static $files = array (
+        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
+        '3a37ebac017bc098e9a86b35401e7a68' => __DIR__ . '/..' . '/mongodb/mongodb/src/functions.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
+        'S' => 
+        array (
+            'Symfony\\Polyfill\\Php80\\' => 23,
+        ),
         'P' => 
         array (
             'PDODB\\' => 6,
         ),
         'M' => 
         array (
+            'Mongo\\' => 6,
+            'MongoDB\\' => 8,
             'Models\\' => 7,
             'Middleware\\' => 11,
         ),
@@ -33,6 +44,10 @@ class ComposerStaticInitdac6923e96b38f35b893f8afe5f98514
             'Lawana\\Controller\\' => 18,
             'Lawana\\API\\' => 11,
         ),
+        'J' => 
+        array (
+            'Jean85\\' => 7,
+        ),
         'C' => 
         array (
             'Core\\Helpers\\' => 13,
@@ -46,9 +61,21 @@ class ComposerStaticInitdac6923e96b38f35b893f8afe5f98514
     );
 
     public static $prefixDirsPsr4 = array (
+        'Symfony\\Polyfill\\Php80\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
+        ),
         'PDODB\\' => 
         array (
             0 => __DIR__ . '/..' . '/pdo',
+        ),
+        'Mongo\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mongo',
+        ),
+        'MongoDB\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mongodb/mongodb/src',
         ),
         'Models\\' => 
         array (
@@ -114,6 +141,10 @@ class ComposerStaticInitdac6923e96b38f35b893f8afe5f98514
         array (
             0 => __DIR__ . '/..' . '/lawana/API',
         ),
+        'Jean85\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jean85/pretty-package-versions/src',
+        ),
         'Core\\Helpers\\' => 
         array (
             0 => __DIR__ . '/../..' . '/Core/Helpers',
@@ -133,7 +164,12 @@ class ComposerStaticInitdac6923e96b38f35b893f8afe5f98514
     );
 
     public static $classMap = array (
+        'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
+        'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
+        'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
+        'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

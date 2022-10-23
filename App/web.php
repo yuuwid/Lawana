@@ -1,5 +1,6 @@
 <?php
 
+use Controllers\ExampleController;
 use Lawana\Routing\Register;
 
 /**
@@ -16,9 +17,7 @@ use Lawana\Routing\Register;
  *   jika mendaftarkan url yang sama, maka url yang didaftarkan pertama kali yang akan dipakai.
  */
 
-Register::url('/', function() {
-    return view('home.welcome-page');
-});
+Register::url('/', [ExampleController::class, "index"]);
 
 
 Register::api('/test-api', function() {

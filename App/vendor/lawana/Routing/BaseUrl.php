@@ -9,7 +9,7 @@ class BaseUrl extends Web
 {
     protected static $name_url = null;
 
-    public function __construct(string $url, mixed $option)
+    public function __construct(string $url, $option)
     {
         BaseUrl::$name_url = Tools::random_str(5);
         self::$urls[BaseUrl::$name_url] = [
@@ -35,18 +35,17 @@ class BaseUrl extends Web
 
     public function name(string $name)
     {
-        if (!array_key_exists($name, self::$urls))
-        {
+        if (!array_key_exists($name, self::$urls)) {
             self::$urls[$name] = self::$urls[BaseUrl::$name_url];
-    
+
             unset(self::$urls[BaseUrl::$name_url]);
-    
+
             BaseUrl::$name_url = $name;
         }
         return $this;
     }
 
-    public function middleware(string | array $handlers)
+    public function middleware($handlers)
     {
         self::$urls[BaseUrl::$name_url]['middleware'] = $handlers;
 

@@ -10,7 +10,7 @@ class Register extends App
 {
 
 
-    public static function url(string $url, mixed $option)
+    public static function url(string $url, $option)
     {
         if (self::check($url) == true) {
             $register = new BaseUrl($url, $option);
@@ -19,7 +19,7 @@ class Register extends App
     }
 
 
-    public static function api(string $url, mixed $option)
+    public static function api(string $url, $option)
     {
         if (self::check($url) == true) {
             $register = new BaseApi($url, $option);
